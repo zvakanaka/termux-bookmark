@@ -2,7 +2,7 @@
 const { window } = require('page-evaluate');
 const https = require('https');
 
-const bookmarkServerRoot = 'https://corontine.io/boomkark-table-of-data';
+const BOOKMARK_SERVER_ROOT = process.env.BOOKMARK_SERVER_ROOT || 'http://localhost:3000';
 
 (async () => {
   if (!process.argv.length > 2) {
@@ -22,7 +22,7 @@ const bookmarkServerRoot = 'https://corontine.io/boomkark-table-of-data';
 
   console.log(`Adding bookmark: ${title} ${url}`);
   const path = `/save?url=${url}${title ? `&name=${title}` : ''}`;
-  https.get(`${bookmarkServerRoot}${path}`, (resp) => {
+  https.get(`${BOOKMARK_SERVER_ROOT}${path}`, (resp) => {
     let data = '';
     resp.on('data', (chunk) => {
       data += chunk;
